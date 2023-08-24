@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="site_url"
+        android:title="Сайт"
+        android:summary="Устанавливает ссылку на сайт ИТИ"
+        android:defaultValue="example.com"
+        android:dialogTitle="Введите ссылку на сайт (формат: example.com)" />
+    <EditTextPreference
+        android:key="user_login"
+        android:title="Логин"
+        android:summary="Устанавливает логин пользоватля сайта ИТИ"
+        android:defaultValue="-"
+        android:dialogTitle="Введите существующий логин на сайте ИТИ" />
+    <EditTextPreference
+        android:key="user_password"
+        android:title="Пароль"
+        android:summary="Устанавливает пароль пользователя сайта ИТИ"
+        android:defaultValue="-"
+        android:dialogTitle="Введите существующий пароль на сайте ИТИ" />
+    <EditTextPreference
+        android:key="iti_id"
+        android:title="ИТИ"
+        android:summary="Устанавливает номер редактируемого ИТИ"
+        android:defaultValue="0"
+        android:dialogTitle="Введите существующий номер ИТИ" />
+    <EditTextPreference
+        android:key="subject_id"
+        android:title="Предмет"
+        android:summary="Устанавливает номер редактируемого предмета"
+        android:defaultValue="0"
+        android:dialogTitle="Введите существующий предмет" />
+    <SwitchPreference
+        android:key="result_or_barcode"
+        android:title="Результат по предмету или ИТИ"
+        android:summaryOff="Выбрано сканирование результатов по предмету"
+        android:summaryOn="Выбрано сканирование штрих-кодов для ИТИ"
+        android:switchTextOff="Предмет"
+        android:switchTextOn="ИТИ" />
+</PreferenceScreen>

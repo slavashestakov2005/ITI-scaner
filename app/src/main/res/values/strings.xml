@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ИТИ-сканер</string>
+    <string name="scan_process_label">Сканирование…</string>
+    <string name="scan_label">Сканировать</string>
+    <string name="scan_result_label">Найдены штрих-коды: </string>
+    <string name="title_activity_settings">Настройки</string>
+</resources>
