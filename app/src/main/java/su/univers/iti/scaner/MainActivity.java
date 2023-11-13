@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.PreviewCallback;
@@ -16,6 +17,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.renderscript.ScriptIntrinsicYuvToRGB;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout preview;
     private LinearLayout table;
     private Button button_scan, button_send;
+    private TextView title;
     private ImageScanner scanner;
     private boolean previewing = true;
     private Image codeImage;
@@ -84,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         button_scan = (Button) findViewById(R.id.button_scan);
         button_send = (Button) findViewById(R.id.button_send);
         table = (LinearLayout) findViewById(R.id.students_table);
+        title = (TextView) findViewById(R.id.title_scan_activity);
 
         button_scan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +128,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        new GetSubjectInfo().execute();
+    }
+
     private void goToSettings() {
         Intent myAppSettings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
         myAppSettings.addCategory(Intent.CATEGORY_DEFAULT);
@@ -135,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
         return true;
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -409,6 +421,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
+    class GetSubjectInfo extends RequestParent {
+        String subject_id;
+
+        public GetSubjectInfo() {
+            super("subject_info", true, false);
+            ConnectionHelper.updatePreferences(getBaseContext());
+            this.subject_id = ConnectionHelper.subject_id;
+            try {
+                jsonSend.put("subject_id", subject_id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @SuppressLint({"ShowToast", "SetTextI18n"})
+        @Override
+        protected void onPostExecute(String res) {
+            super.onPostExecute(res);
+            if (status_ok) {
+                try {
+                    JSONObject subject = jsonGet.getJSONObject("subject");
+                    SpannableString spanString = new SpannableString(subject.getString("name"));
+                    if (ConnectionHelper.result_or_barcode) {
+                        spanString = new SpannableString("ИТИ " + ConnectionHelper.iti_id);
+                    } else {
+                        spanString = new SpannableString(spanString.toString() + ", ИТИ " + ConnectionHelper.iti_id);
+                    }
+                    spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
+                    title.setText(spanString);
+                    return;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            Toast.makeText(getBaseContext(), "Ошибка: " + msg, Toast.LENGTH_SHORT).show();
+            SpannableString spanString = new SpannableString("Ошибка");
+            spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
+            title.setText(spanString);
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
     class SaveTable extends RequestParent {
         public SaveTable() {
             super("save_barcodes", true, false);
@@ -449,16 +503,16 @@ public class MainActivity extends AppCompatActivity {
     class SaveSubjectResult extends RequestParent {
         public SaveSubjectResult() {
             super("save_results", true, true);
-            ArrayList<ArrayList<Long>> data = new ArrayList<>();
+            ArrayList<ArrayList<String>> data = new ArrayList<>();
             for (int i = 0; i < table.getChildCount(); i++) {
                 TableLayout line = (TableLayout) table.getChildAt(i);
-                ArrayList<Long> row = new ArrayList<>();
+                ArrayList<String> row = new ArrayList<>();
                 int[] cols = {1, 2};
                 for (int col : cols){
                     TableRow tableRow = (TableRow) line.getChildAt(col);
                     EditText cur = (EditText) tableRow.getChildAt(1);
                     String text = cur.getText().toString();
-                    if (text.length() > 0) row.add(Long.parseLong(text));
+                    if (text.length() > 0) row.add(text);
                 }
                 if (row.size() != 2) Toast.makeText(getBaseContext(), "Не удалось прочитать строку " + (i + 1), Toast.LENGTH_SHORT).show();
                 else data.add(row);

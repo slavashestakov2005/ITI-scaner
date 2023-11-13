@@ -4,7 +4,7 @@
         android:key="site_url"
         android:title="Сайт"
         android:summary="Устанавливает ссылку на сайт ИТИ"
-        android:defaultValue="example.com"
+        android:defaultValue="iti.univers.su"
         android:dialogTitle="Введите ссылку на сайт (формат: example.com)" />
     <EditTextPreference
         android:key="user_login"
@@ -37,4 +37,14 @@
         android:summaryOn="Выбрано сканирование штрих-кодов для ИТИ"
         android:switchTextOff="Предмет"
         android:switchTextOn="ИТИ" />
+    <EditTextPreference
+        android:key="version"
+        android:title="Версия приложения"
+        android:summary="0"
+        android:defaultValue="0"
+        android:dialogTitle="Версия можно только просматривать :)"
+        android:enabled="false"
+        android:selectable="false"
+        android:persistent="false"
+        android:shouldDisableView="false"/>
 </PreferenceScreen>

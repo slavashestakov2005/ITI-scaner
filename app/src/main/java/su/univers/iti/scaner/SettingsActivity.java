@@ -9,5 +9,7 @@ public class SettingsActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
+        String versionName = BuildConfig.VERSION_NAME;
+        findPreference("version").setSummary(versionName);
     }
 }
