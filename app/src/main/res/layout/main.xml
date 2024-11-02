@@ -6,65 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Добро пожаловать в ИТИ-сканер!\nЗаполните данные в настройках и присутпайте к сканированию."
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_weight="0.25"
+        android:text="Немного деталей работы.\nСканирование происходит или до нажатия кнопки стоп, или до получения 30 кадров с штрих-кодами (можно поменять в настройках). В конце алгоритм выбирает те коды, которые считывал большего всего раз - проверьте их!"
+        android:textSize="15sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/title_scan_activity"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25">
+        <Button
+            android:id="@+id/button_start_scan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Название предмета ИТИ"
-            android:textSize="30sp"
-            android:gravity="center_horizontal" />
-
-        <FrameLayout
-            android:id="@+id/cameraPreview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dip"
-            android:background="@android:color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:orientation="vertical">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="UselessParent"
-            android:fillViewport="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <Button
-                    android:id="@+id/button_scan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Отсканировать" />
-
-                <LinearLayout
-                    android:id="@+id/students_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/button_send"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Отправить (сохранить)" />
-            </LinearLayout>
-        </ScrollView>
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Перейти к сканированию" />
     </LinearLayout>
 </LinearLayout>

@@ -7,6 +7,12 @@
         android:defaultValue="iti.univers.su"
         android:dialogTitle="Введите ссылку на сайт (формат: example.com)" />
     <EditTextPreference
+        android:key="max_frames"
+        android:title="Кадры"
+        android:summary="Устанавливает сколько кадров анализирует сканер"
+        android:defaultValue="30"
+        android:dialogTitle="Сколько кадров анализировать" />
+    <EditTextPreference
         android:key="user_login"
         android:title="Логин"
         android:summary="Устанавливает логин пользоватля сайта ИТИ"
@@ -42,7 +48,7 @@
         android:title="Версия приложения"
         android:summary="0"
         android:defaultValue="0"
-        android:dialogTitle="Версия можно только просматривать :)"
+        android:dialogTitle="Версию можно только просматривать :)"
         android:enabled="false"
         android:selectable="false"
         android:persistent="false"

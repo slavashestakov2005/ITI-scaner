@@ -21,14 +21,23 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:name=".CameraActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".DataResultActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".DataBarcodeActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name="MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

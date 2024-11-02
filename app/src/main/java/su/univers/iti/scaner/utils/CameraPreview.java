@@ -3,7 +3,7 @@
  *
  * Created by lisah0 on 2012-02-24
  */
-package su.univers.iti.scaner;
+package su.univers.iti.scaner.utils;
 
 import android.content.Context;
 import android.graphics.ImageFormat;
